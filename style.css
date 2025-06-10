@@ -3,7 +3,7 @@ html, body {
   font-family: 'Open Sans', Arial, sans-serif;
   background: #f8faf5;
   color: #23402d;
-  overflow-x: hidden; /* Fix right-side gap on mobile */
+  overflow-x: hidden;
 }
 
 @media (max-width: 991.98px) {
@@ -18,8 +18,8 @@ html, body {
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
   z-index: 1040;
-  width: 100vw;      /* Prevent navbar from overflowing right */
-  max-width: 100vw;  /* Prevent accidental overflow */
+  width: 100vw;
+  max-width: 100vw;
   overflow-x: hidden;
 }
 
@@ -252,6 +252,14 @@ footer .fab:hover {
   border-radius: 0.6rem;
 }
 
+/* Hide custom scrollbar color on mobile to prevent green bar during load */
+@media (max-width: 991.98px) {
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-thumb {
+    background: transparent !important;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 9px;
   background: #e2fae5;
@@ -259,4 +267,29 @@ footer .fab:hover {
 ::-webkit-scrollbar-thumb {
   background: #228c3e;
   border-radius: 6px;
+}
+
+/* Smoother fade effect for testimonials carousel with NO overlap */
+#testimonialCarousel .carousel-item {
+  transition: opacity 0.5s linear;
+  opacity: 0;
+  display: block;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+#testimonialCarousel .carousel-item.active,
+#testimonialCarousel .carousel-item-next.carousel-item-left,
+#testimonialCarousel .carousel-item-prev.carousel-item-right {
+  opacity: 1;
+  z-index: 2;
+  position: relative;
+  pointer-events: auto;
+}
+#testimonialCarousel .carousel-inner {
+  position: relative;
+  min-height: 160px;
 }

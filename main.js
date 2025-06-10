@@ -18,14 +18,20 @@ document.querySelectorAll('a.nav-link[href^="#"], a.btn[href^="#"]').forEach(lin
   });
 });
 
-// Scrollspy: highlight nav as scrolling
+// Improved Scrollspy: highlight nav as scrolling (fixes gallery/testimonials mismatch)
 window.addEventListener('scroll', function() {
   const sections = document.querySelectorAll('section[id], header[id]');
-  const scrollPos = document.documentElement.scrollTop || document.body.scrollTop;
+  const scrollPos = window.scrollY || window.pageYOffset;
   const offset = (document.querySelector('.navbar')?.offsetHeight || 70) + 8;
   let currentId = "";
+
+  // Find the section whose top is closest but not greater than scrollPos + offset
+  let minDiff = Infinity;
   sections.forEach(section => {
-    if (section.offsetTop - offset <= scrollPos) {
+    const sectionTop = section.offsetTop;
+    const diff = Math.abs(scrollPos + offset - sectionTop);
+    if ((scrollPos + offset >= sectionTop) && diff < minDiff) {
+      minDiff = diff;
       currentId = section.id;
     }
   });
