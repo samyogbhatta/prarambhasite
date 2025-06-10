@@ -3,6 +3,7 @@ html, body {
   font-family: 'Open Sans', Arial, sans-serif;
   background: #f8faf5;
   color: #23402d;
+  overflow-x: hidden; /* Fix right-side gap on mobile */
 }
 
 @media (max-width: 991.98px) {
@@ -17,6 +18,9 @@ html, body {
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
   z-index: 1040;
+  width: 100vw;      /* Prevent navbar from overflowing right */
+  max-width: 100vw;  /* Prevent accidental overflow */
+  overflow-x: hidden;
 }
 
 .navbar-brand {
